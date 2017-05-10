@@ -168,6 +168,7 @@ namespace LeagueAutoAccept
         private bool IsInQueue()
         {
             bool cancelqueueMatch = false;
+            System.Drawing.Point pnt = new System.Drawing.Point();
             using (var img = new Image<Bgr, Byte>(GetClientScreenShot(config.ScreenCaptureWaitTime)))
             {
                 cancelqueueMatch = CheckMatch(img.Mat, GetMatFromPath(images["cancelqueue"]), ref pnt, 90);
@@ -193,8 +194,7 @@ namespace LeagueAutoAccept
                 var task = Task.Run(() =>
                 {
                     var processHandle = GetLeague().MainWindowHandle;
-                    //first things first, find out if we're in queue
-                    System.Drawing.Point pnt = new System.Drawing.Point();
+                    //first things first, find out if we're in queue                    
                     if (!IsInQueue())
                     {
                         Log("ERROR : You are not in queue.");
