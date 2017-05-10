@@ -203,10 +203,10 @@ namespace LeagueAutoAccept
                         return;
                     }
 
-                    while(isRunning) // keep on waiting for queue changes...
+                    var template = GetMatFromPath(images["accept"]);
+                    while (isRunning) // keep on waiting for queue changes...
                     {
-                        System.Drawing.Point location = new System.Drawing.Point();
-                        var template = GetMatFromPath(images["accept"]);
+                        System.Drawing.Point location = new System.Drawing.Point();                        
                         bool acceptButton = false;
                         using (var img = new Image<Bgr, Byte>(GetClientScreenShot(config.ScreenCaptureWaitTime)))
                         {
@@ -229,6 +229,8 @@ namespace LeagueAutoAccept
                         }
                         Thread.Sleep(config.CheckQueueTimeout);
                     }
+                    template.Dispose();
+
                     TransformStart();
                     //TODO : figure out our position in champion select..
                 });
